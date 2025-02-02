@@ -1,0 +1,32 @@
+{
+  "hero": {
+    "title": "No Te Pierdas Ningún Momento",
+    "subtitle": "Resúmenes de MLB Potenciados por IA, A Tu Manera",
+    "description": "Recibe resúmenes personalizados con comentarios multilingües, directamente en tu bandeja de entrada.",
+    "cta": "Obtén Tus Resúmenes Ahora"
+  },
+  "features": {
+    "personalized": {
+      "title": "Resúmenes Personalizados",
+      "description": "Sigue a jugadores o equipos. Obtén clips seleccionados solo para ti."
+    },
+    "multilingual": {
+      "title": "Narraciones de IA Multilingües",
+      "description": "Escucha comentarios en inglés, español o japonés con análisis profesional."
+    },
+    "insights": {
+      "title": "Análisis en Tiempo Real",
+      "description": "Comprende la estrategia detrás de cada jugada con análisis de Gemini."
+    }
+  },
+  "techDemo": {
+    "title": "Mira Cómo Funciona",
+    "upload": "Subir Video",
+    "processing": "Procesando con IA",
+    "preview": "Vista Previa",
+    "stats": {
+      "speed": "Velocidad de Procesamiento",
+      "accuracy": "Precisión del Modelo"
+    }
+  }
+}

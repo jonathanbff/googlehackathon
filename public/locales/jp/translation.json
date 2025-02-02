@@ -1,0 +1,32 @@
+{
+  "hero": {
+    "title": "一瞬も見逃さない",
+    "subtitle": "AI搭載MLBハイライト、あなた好みに",
+    "description": "パーソナライズされたゲームダイジェストを多言語解説付きで、メールボックスへ直接お届け。",
+    "cta": "今すぐハイライトを見る"
+  },
+  "features": {
+    "personalized": {
+      "title": "パーソナライズされたハイライト",
+      "description": "選手やチームをフォロー。あなたのために厳選されたクリップをお届け。"
+    },
+    "multilingual": {
+      "title": "AI多言語ボイスオーバー",
+      "description": "英語、スペイン語、日本語でプロレベルの解説を聞く。"
+    },
+    "insights": {
+      "title": "リアルタイム分析",
+      "description": "Geminiパワードの分析で、各プレーの戦略を理解。"
+    }
+  },
+  "techDemo": {
+    "title": "仕組みを見る",
+    "upload": "動画をアップロード",
+    "processing": "AI処理中",
+    "preview": "プレビュー",
+    "stats": {
+      "speed": "処理速度",
+      "accuracy": "モデル精度"
+    }
+  }
+}

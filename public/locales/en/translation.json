@@ -1,0 +1,32 @@
+{
+  "hero": {
+    "title": "Never Miss a Moment",
+    "subtitle": "AI-Powered MLB Highlights, Your Way",
+    "description": "Get personalized game recaps with multilingual commentary, delivered straight to your inbox.",
+    "cta": "Get Your Highlights Now"
+  },
+  "features": {
+    "personalized": {
+      "title": "Personalized Highlights",
+      "description": "Follow players or teams. Get clips curated just for you."
+    },
+    "multilingual": {
+      "title": "AI Multilingual Voiceovers",
+      "description": "Hear commentary in English, Spanish, or Japanese with pro-level analysis."
+    },
+    "insights": {
+      "title": "Real-Time Insights",
+      "description": "Understand the strategy behind every play with Gemini-powered breakdowns."
+    }
+  },
+  "techDemo": {
+    "title": "See How It Works",
+    "upload": "Upload Video",
+    "processing": "Processing with AI",
+    "preview": "Preview Results",
+    "stats": {
+      "speed": "Processing Speed",
+      "accuracy": "Model Accuracy"
+    }
+  }
+}
