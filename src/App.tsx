@@ -9,6 +9,12 @@ import GameAnalysis from './pages/GameAnalysis';
 import PlayerProfile from './pages/PlayerProfile';
 import CommentarySettings from './pages/CommentarySettings';
 
+interface NavLinkProps {
+  to: string;
+  icon: React.ReactNode;
+  text: string;
+}
+
 function App() {
   return (
     <Router>
@@ -51,7 +57,7 @@ function App() {
   );
 }
 
-function NavLink({ to, icon, text }) {
+function NavLink({ to, icon, text }: NavLinkProps) {
   return (
     <Link 
       to={to} 
