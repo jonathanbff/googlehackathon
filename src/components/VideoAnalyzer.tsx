@@ -137,10 +137,10 @@ const VideoAnalyzer: React.FC<VideoAnalyzerProps> = ({
 
     if (!isYT && videoRef.current) {
       videoRef.current.src = video.url;
-      videoRef.current.onloadedmetadata = () => {
-        setDuration(videoRef.current?.duration || 0);
-      };
-    }
+        videoRef.current.onloadedmetadata = () => {
+          setDuration(videoRef.current?.duration || 0);
+        };
+      }
   }, [video]);
 
   useEffect(() => {
@@ -388,8 +388,8 @@ ${question}`;
 
   const renderAnalysisSection = (section: AnalysisSection) => {
     const isExpanded = expandedSections.includes(section.title);
-    
-    return (
+
+  return (
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -410,8 +410,8 @@ ${question}`;
           ) : (
             <ChevronDown className="w-5 h-5 text-gray-400 group-hover:text-cyan-400 transition-colors" />
           )}
-        </button>
-        
+                    </button>
+                    
         <AnimatePresence>
           {isExpanded && (
             <motion.div
@@ -526,7 +526,7 @@ ${question}`;
                 <div>
                   <h4 className="text-lg font-semibold text-white/90 group-hover:text-cyan-400 transition-colors">{player.name}</h4>
                   <p className="text-sm text-cyan-400/90">{player.position}</p>
-                </div>
+                  </div>
                 <div className="bg-white/5 px-3 py-1 rounded-full group-hover:bg-cyan-400/10 transition-colors">
                   <span className="text-xs text-white/70 group-hover:text-cyan-400">#{index + 1}</span>
                 </div>
@@ -693,9 +693,9 @@ ${question}`;
                   >
                     <source src={video.url} type="video/mp4" />
                   </video>
-                )}
-              </div>
+              )}
             </div>
+          </div>
 
             {/* Analysis Content */}
             <div className="space-y-8">
@@ -784,14 +784,14 @@ ${question}`;
                                     <p className="font-medium mb-1 text-emerald-400">AI Analyst</p>
                                     <p className="whitespace-pre-line">{chat.answer}</p>
                                   </div>
-                                </div>
+            </div>
                               </motion.div>
                             ))}
                           </motion.div>
                         )}
                       </motion.div>
-                    )}
-                  </div>
+          )}
+        </div>
 
                   <div className="divide-y divide-white/5">
                     {parseNarrationSections(narration).map((section, index) => (

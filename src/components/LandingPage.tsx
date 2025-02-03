@@ -509,9 +509,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onVideoSelect }) => {
               onClick={() => onVideoSelect(video)}
             >
               <div className="relative aspect-video rounded-xl overflow-hidden mb-4">
-                <img
-                  src={video.thumbnail}
-                  alt={video.title}
+                <img 
+                  src={video.thumbnail} 
+                  alt={video.title} 
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -537,8 +537,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onVideoSelect }) => {
                 <ChevronRight className="w-4 h-4 ml-1" />
               </div>
             </motion.div>
-          ))}
-        </div>
+            ))}
+          </div>
       </div>
     </div>
   );

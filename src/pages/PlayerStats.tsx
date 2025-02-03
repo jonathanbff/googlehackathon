@@ -493,13 +493,13 @@ const StatLeaderCard = ({ category, players }: { category: string, players: Play
                 <div className="flex items-center justify-between mb-3">
                 <div>
                   <h4 className="font-bold text-lg">{player.player.name}</h4>
-                    <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2">
                   <span className="text-sm text-gray-400">{player.player.team}</span>
                       {index === 0 && (
                         <span className="text-xs px-2 py-0.5 bg-yellow-500/20 text-yellow-400 rounded-full">
                           League Leader
-                        </span>
-                      )}
+              </span>
+            )}
                     </div>
                 </div>
                 <div className="text-right">
@@ -1009,12 +1009,12 @@ const PlayerStats = () => {
               ) : (
                 // Fallback to mock data if no stats available
                 selectedCategory === 'batting'
-                  ? BATTING_LEADERS.map((category, index) => (
-                      <StatLeaderCard key={index} {...category} />
-                    ))
-                  : PITCHING_LEADERS.map((category, index) => (
-                      <StatLeaderCard key={index} {...category} />
-                    ))
+                ? BATTING_LEADERS.map((category, index) => (
+                    <StatLeaderCard key={index} {...category} />
+                  ))
+                : PITCHING_LEADERS.map((category, index) => (
+                    <StatLeaderCard key={index} {...category} />
+                  ))
               )}
             </div>
           </>
