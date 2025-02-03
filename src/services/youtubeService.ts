@@ -1,6 +1,9 @@
 const YOUTUBE_API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
 const YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3';
 
+// Debug log for API key
+console.log('YouTube API Key loaded:', YOUTUBE_API_KEY ? 'Yes' : 'No');
+
 export interface YouTubeVideo {
   id: {
     videoId: string;
@@ -31,6 +34,10 @@ export const searchMLBVideos = async (
   pageToken?: string
 ): Promise<SearchResponse> => {
   try {
+    if (!YOUTUBE_API_KEY) {
+      throw new Error('YouTube API key is not configured');
+    }
+
     const params = new URLSearchParams({
       part: 'snippet',
       maxResults: maxResults.toString(),
@@ -41,15 +48,24 @@ export const searchMLBVideos = async (
       ...(pageToken && { pageToken }),
     });
 
-    const response = await fetch(`${YOUTUBE_API_URL}/search?${params}`);
+    const requestUrl = `${YOUTUBE_API_URL}/search?${params}`;
+    console.log('Making YouTube API request to:', requestUrl.replace(YOUTUBE_API_KEY, '[REDACTED]'));
+
+    const response = await fetch(requestUrl);
     const data = await response.json();
 
     if (!response.ok) {
+      console.error('YouTube API error:', data.error);
       throw new Error(data.error?.message || 'Failed to fetch videos');
     }
 
+    console.log('YouTube API response:', {
+      itemCount: data.items?.length || 0,
+      hasNextPage: !!data.nextPageToken,
+    });
+
     return {
-      items: data.items,
+      items: data.items || [],
       nextPageToken: data.nextPageToken,
     };
   } catch (error) {

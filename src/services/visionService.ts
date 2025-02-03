@@ -1,23 +1,30 @@
+import { GameEvent, PlayerMetric } from '../types/game';
+
 const VISION_API_KEY = import.meta.env.VITE_GOOGLE_VISION_API_KEY;
 const VISION_API_URL = 'https://vision.googleapis.com/v1/images:annotate';
 
-interface VisionResponse {
+export interface VisionResponse {
   labelAnnotations: Array<{
     description: string;
     score: number;
-    topicality: number;
   }>;
   objectAnnotations: Array<{
     name: string;
     score: number;
     boundingPoly: {
-      normalizedVertices: Array<{ x: number; y: number }>;
+      normalizedVertices: Array<{
+        x: number;
+        y: number;
+      }>;
     };
   }>;
 }
 
-export const analyzeFrame = async (imageUrl: string): Promise<VisionResponse> => {
+export const analyzeFrame = async (imageData: string): Promise<VisionResponse> => {
   try {
+    // Remove data URL prefix if present
+    const base64Image = imageData.replace(/^data:image\/\w+;base64,/, '');
+
     const response = await fetch(`${VISION_API_URL}?key=${VISION_API_KEY}`, {
       method: 'POST',
       headers: {
@@ -27,9 +34,7 @@ export const analyzeFrame = async (imageUrl: string): Promise<VisionResponse> =>
         requests: [
           {
             image: {
-              source: {
-                imageUri: imageUrl,
-              },
+              content: base64Image,
             },
             features: [
               {
@@ -46,15 +51,17 @@ export const analyzeFrame = async (imageUrl: string): Promise<VisionResponse> =>
       }),
     });
 
-    const data = await response.json();
-
     if (!response.ok) {
-      throw new Error(data.error?.message || 'Failed to analyze image');
+      const error = await response.json();
+      throw new Error(error.error?.message || 'Failed to analyze image');
     }
 
+    const data = await response.json();
+    const result = data.responses[0];
+
     return {
-      labelAnnotations: data.responses[0].labelAnnotations || [],
-      objectAnnotations: data.responses[0].localizedObjectAnnotations || [],
+      labelAnnotations: result.labelAnnotations || [],
+      objectAnnotations: result.localizedObjectAnnotations || [],
     };
   } catch (error) {
     console.error('Error analyzing frame:', error);
@@ -62,89 +69,79 @@ export const analyzeFrame = async (imageUrl: string): Promise<VisionResponse> =>
   }
 };
 
-export const extractGameEvents = (annotations: VisionResponse): GameEvent[] => {
-  const events: GameEvent[] = [];
-  const currentTime = new Date().toLocaleTimeString();
+export const extractGameEvents = (annotations: VisionResponse) => {
+  const events = [];
+  const labels = annotations.labelAnnotations || [];
+  const objects = annotations.objectAnnotations || [];
 
-  // Map vision labels to game events
-  annotations.labelAnnotations.forEach(label => {
-    if (label.score > 0.8) { // Only consider high-confidence detections
-      switch (label.description.toLowerCase()) {
-        case 'baseball bat':
-        case 'batting':
-        case 'swing':
-          events.push({
-            timestamp: currentTime,
-            type: 'hit',
-            description: 'Batter at the plate',
-          });
-          break;
-        case 'pitching':
-        case 'pitcher':
-          events.push({
-            timestamp: currentTime,
-            type: 'pitch',
-            description: 'Pitcher throwing',
-          });
-          break;
-        case 'running':
-        case 'base':
-          events.push({
-            timestamp: currentTime,
-            type: 'run',
-            description: 'Runner in motion',
-          });
-          break;
-        case 'catch':
-        case 'fielding':
-          events.push({
-            timestamp: currentTime,
-            type: 'out',
-            description: 'Fielding play',
-          });
-          break;
-      }
+  // Process labels for game events
+  for (const label of labels) {
+    if (label.score < 0.7) continue; // Only consider high confidence detections
+
+    if (label.description.toLowerCase().includes('bat') || label.description.toLowerCase().includes('swing')) {
+      events.push({
+        type: 'hit',
+        description: 'Batter at the plate',
+        confidence: label.score,
+        timestamp: new Date().toISOString(),
+      });
+    } else if (label.description.toLowerCase().includes('pitch') || label.description.toLowerCase().includes('throw')) {
+      events.push({
+        type: 'pitch',
+        description: 'Pitcher throwing',
+        confidence: label.score,
+        timestamp: new Date().toISOString(),
+      });
+    } else if (label.description.toLowerCase().includes('run') || label.description.toLowerCase().includes('base')) {
+      events.push({
+        type: 'run',
+        description: 'Runner on base',
+        confidence: label.score,
+        timestamp: new Date().toISOString(),
+      });
     }
-  });
+  }
 
   return events;
 };
 
-export const extractPlayerMetrics = (annotations: VisionResponse): Partial<PlayerMetric>[] => {
-  const metrics: Partial<PlayerMetric>[] = [];
+export const extractPlayerMetrics = (annotations: VisionResponse) => {
+  const metrics = [];
+  const objects = annotations.objectAnnotations || [];
 
-  // Detect players and their positions
-  annotations.objectAnnotations
-    .filter(obj => obj.name.toLowerCase().includes('person') && obj.score > 0.7)
-    .forEach((person, index) => {
-      // Determine player position based on location on field
-      const position = determinePosition(person.boundingPoly.normalizedVertices);
-      
+  for (const obj of objects) {
+    if (obj.score < 0.7) continue; // Only consider high confidence detections
+
+    if (obj.name.toLowerCase().includes('person')) {
+      const position = determinePosition(obj.boundingPoly.normalizedVertices);
       metrics.push({
-        name: `Player ${index + 1}`,
-        position,
+        name: `Player ${metrics.length + 1}`,
+        position: position,
         stats: {
-          // Add dynamic stats based on player position and movement
+          confidence: obj.score,
         },
       });
-    });
+    }
+  }
 
   return metrics;
 };
 
-const determinePosition = (vertices: Array<{ x: number; y: number }>): string => {
+const determinePosition = (vertices: Array<{ x: number; y: number }>) => {
   // Calculate center point of bounding box
   const centerX = vertices.reduce((sum, v) => sum + v.x, 0) / vertices.length;
   const centerY = vertices.reduce((sum, v) => sum + v.y, 0) / vertices.length;
 
-  // Simple position determination based on location
+  // Simple position determination based on location in frame
   if (centerY > 0.7) {
-    return 'OF'; // Outfield
-  } else if (centerX < 0.4) {
-    return '1B'; // First base
-  } else if (centerX > 0.6) {
-    return '3B'; // Third base
+    return 'Batter';
+  } else if (centerY < 0.3 && Math.abs(centerX - 0.5) < 0.2) {
+    return 'Pitcher';
+  } else if (centerX < 0.3) {
+    return 'Left Field';
+  } else if (centerX > 0.7) {
+    return 'Right Field';
   } else {
-    return 'P'; // Pitcher/Infield
+    return 'Center Field';
   }
 }; 
