@@ -1,0 +1,32 @@
+{
+  "analysis": {
+    "title": "Análisis en Vivo",
+    "description": "Análisis de juegos de béisbol en tiempo real con IA",
+    "loading": "Cargando...",
+    "refresh": "Actualizar",
+    "noVideo": "No hay video seleccionado",
+    "loadLatest": "Cargar Último Juego",
+    "playerMetrics": "Métricas de Jugadores",
+    "noMetrics": "No hay métricas disponibles",
+    "events": "Eventos del Juego",
+    "noEvents": "No se han detectado eventos"
+  },
+  "stats": {
+    "playerStats": "Estadísticas de Jugadores",
+    "noPlayerStats": "No hay estadísticas de jugadores disponibles",
+    "gameEvents": "Eventos del Juego",
+    "noEvents": "Aún no se han detectado eventos"
+  },
+  "errors": {
+    "fetchFailed": "Error al cargar el video",
+    "invalidUrl": "URL de YouTube inválida",
+    "analysisError": "Error al analizar el video",
+    "narrationError": "Error al generar la narración"
+  },
+  "chat": {
+    "welcome": "¡Hola! Soy tu asistente de béisbol con IA. Puedo ayudarte a analizar jugadas, explicar estrategias y discutir el juego. ¿Qué te gustaría saber?",
+    "placeholder": "Pregunta sobre el juego, jugadores o estrategias...",
+    "error": "Lo siento, encontré un error. Por favor, intenta de nuevo.",
+    "send": "Enviar"
+  }
+} 

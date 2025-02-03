@@ -1,0 +1,10 @@
+flask==2.3.3
+flask-cors==4.0.0
+pandas==2.2.3
+numpy==2.2.0
+requests==2.31.0
+python-dateutil==2.8.2
+scipy==1.15.1
+tqdm==4.66.1
+pybaseball==2.2.5
+Werkzeug==2.3.7 

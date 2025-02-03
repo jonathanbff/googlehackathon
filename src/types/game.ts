@@ -70,43 +70,74 @@ export interface ScoringPlay {
   rbi: boolean;
 }
 
+export type GameEventType = 'pitch' | 'hit' | 'run' | 'out';
+
 export interface GameEvent {
-  event_type: 'pitch' | 'hit' | 'fielding' | 'base_running' | 'score';
-  inning: number;
-  half: 'top' | 'bottom';
+  type: GameEventType;
   timestamp: string;
   description: string;
-  pitch?: {
-    pitcher_name: string;
-    pitch_type: string;
-    pitch_speed_mph: number;
-  };
-  hit?: {
-    batter_name: string;
-    hit_type: string;
-    exit_velocity_mph: number;
-    launch_angle_deg: number;
-  };
-  scoring_play?: {
-    runner_name: string;
-    rbi: boolean;
+  inning: number;
+  half: 'top' | 'bottom';
+  details?: {
+    pitchSpeed?: number;
+    pitchType?: string;
+    exitVelocity?: number;
+    hitType?: string;
+    location?: string;
+    result?: string;
   };
 }
 
 export interface PlayerStats {
-  pitchSpeed?: string;
-  battingAvg?: string;
-  pitchCount?: number;
-  hits?: number;
-  homeRuns?: number;
-  accuracy?: string;
-  confidence?: number;
+  name: string;
+  position: string;
+  stats: {
+    [key: string]: string | number;
+  };
+  highlights?: string[];
+}
+
+export interface GameStats {
+  players: PlayerStats[];
+  events: GameEvent[];
+  summary: {
+    pitching: {
+      strikeRate: string;
+      firstPitchStrikes: string;
+      groundBallRate: string;
+      swingMissRate: string;
+    };
+    batting: {
+      teamBabip: string;
+      hardHitRate: string;
+      exitVelocity: string;
+      contactRate: string;
+    };
+  };
 }
 
 export interface PlayerMetric {
   name: string;
   position: string;
-  stats: PlayerStats;
+  stats: {
+    [key: string]: string | number;
+  };
+  highlights?: string[];
+}
+
+export interface PitchEvent extends GameEvent {
+  type: 'pitch';
+  pitcher_name: string;
+  pitch_type: string;
+  pitch_speed_mph: number;
+}
+
+export interface HitEvent extends GameEvent {
+  type: 'hit';
+  batter_name: string;
+  hit_type: string;
+  exit_velocity_mph: number;
+  launch_angle_deg: number;
 }
 
 export interface FinalScore {
