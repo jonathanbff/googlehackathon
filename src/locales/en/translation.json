@@ -1,0 +1,32 @@
+{
+  "analysis": {
+    "title": "Live Analysis",
+    "description": "Real-time baseball game analysis powered by AI",
+    "loading": "Loading...",
+    "refresh": "Refresh",
+    "noVideo": "No video selected",
+    "loadLatest": "Load Latest Game",
+    "playerMetrics": "Player Metrics",
+    "noMetrics": "No player metrics available",
+    "events": "Game Events",
+    "noEvents": "No events detected"
+  },
+  "stats": {
+    "playerStats": "Player Statistics",
+    "noPlayerStats": "No player statistics available",
+    "gameEvents": "Game Events",
+    "noEvents": "No events detected yet"
+  },
+  "errors": {
+    "fetchFailed": "Failed to fetch video data",
+    "invalidUrl": "Invalid YouTube URL",
+    "analysisError": "Error analyzing video",
+    "narrationError": "Error generating narration"
+  },
+  "chat": {
+    "welcome": "Hello! I'm your baseball AI assistant. I can help you analyze plays, explain strategies, and discuss the game. What would you like to know?",
+    "placeholder": "Ask about the game, players, or strategies...",
+    "error": "Sorry, I encountered an error. Please try again.",
+    "send": "Send"
+  }
+} 

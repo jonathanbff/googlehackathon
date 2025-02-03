@@ -10,6 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.10.6",
+    "@google/generative-ai": "^0.21.0",
+    "date-fns": "^4.1.0",
+    "framer-motion": "^12.0.6",
     "google-auth-library": "^9.15.1",
     "i18next": "^23.16.8",
     "i18next-browser-languagedetector": "^7.2.2",
