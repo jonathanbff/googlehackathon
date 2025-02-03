@@ -28,5 +28,36 @@
       "speed": "Processing Speed",
       "accuracy": "Model Accuracy"
     }
+  },
+  "navigation": {
+    "home": "Home",
+    "liveAnalysis": "Live Analysis",
+    "stats": "Stats",
+    "players": "Players",
+    "settings": "Settings"
+  },
+  "auth": {
+    "signIn": "Sign In"
+  },
+  "analysis": {
+    "title": "Live Analysis",
+    "playerMetrics": "Player Metrics",
+    "events": "Events",
+    "noMetrics": "No player metrics available",
+    "noEvents": "No events detected",
+    "loading": "Loading...",
+    "refresh": "Refresh",
+    "noVideo": "No video selected",
+    "loadLatest": "Load Latest Game"
+  },
+  "stats": {
+    "title": "MLB Stats Leaders",
+    "batting": "Batting",
+    "pitching": "Pitching",
+    "battingAvg": "Batting Average",
+    "homeRuns": "Home Runs",
+    "era": "ERA",
+    "strikeouts": "Strikeouts",
+    "searchPlaceholder": "Search players..."
   }
 }

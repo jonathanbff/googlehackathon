@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { Globe2, Baseline as Baseball, Cpu, ChevronRight, Play, Heart, BarChart3, Home, User, Settings, Activity, Diamond } from 'lucide-react';
+import { BarChart3, Home, User, Settings, Activity, Diamond } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { LanguageSwitcher } from './components/LanguageSwitcher';
 import LandingPage from './pages/LandingPage';
 import GameAnalysis from './pages/GameAnalysis';
+import PlayerStats from './pages/PlayerStats';
+import PlayerDashboard from './pages/PlayerDashboard';
 import PlayerProfile from './pages/PlayerProfile';
 import CommentarySettings from './pages/CommentarySettings';
 
@@ -16,6 +18,8 @@ interface NavLinkProps {
 }
 
 function App() {
+  const { t } = useTranslation();
+
   return (
     <Router>
       <div className="min-h-screen bg-[#0A1A2F] text-white">
@@ -28,16 +32,17 @@ function App() {
               </Link>
               
               <div className="hidden md:flex space-x-8">
-                <NavLink to="/" icon={<Home className="w-4 h-4" />} text="Home" />
-                <NavLink to="/analysis" icon={<Activity className="w-4 h-4" />} text="Live Analysis" />
-                <NavLink to="/players" icon={<User className="w-4 h-4" />} text="Players" />
-                <NavLink to="/settings" icon={<Settings className="w-4 h-4" />} text="Settings" />
+                <NavLink to="/" icon={<Home className="w-4 h-4" />} text={t('navigation.home')} />
+                <NavLink to="/analysis" icon={<Activity className="w-4 h-4" />} text={t('navigation.liveAnalysis')} />
+                <NavLink to="/stats" icon={<BarChart3 className="w-4 h-4" />} text={t('navigation.stats')} />
+                <NavLink to="/players" icon={<User className="w-4 h-4" />} text={t('navigation.players')} />
+                <NavLink to="/settings" icon={<Settings className="w-4 h-4" />} text={t('navigation.settings')} />
               </div>
 
               <div className="flex items-center space-x-4">
                 <LanguageSwitcher />
                 <button className="bg-[#00FFC2] text-[#0A1A2F] px-4 py-2 rounded-lg font-bold text-sm hover:bg-[#00FFC2]/90 transition-all">
-                  Sign In
+                  {t('auth.signIn')}
                 </button>
               </div>
             </div>
@@ -45,12 +50,20 @@ function App() {
         </nav>
 
         <main className="pt-16">
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/analysis" element={<GameAnalysis />} />
-            <Route path="/players/:id" element={<PlayerProfile />} />
-            <Route path="/settings" element={<CommentarySettings />} />
-          </Routes>
+          <Suspense fallback={
+            <div className="flex items-center justify-center h-screen">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#00FFC2]"></div>
+            </div>
+          }>
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/analysis" element={<GameAnalysis />} />
+              <Route path="/stats" element={<PlayerStats />} />
+              <Route path="/players" element={<PlayerDashboard />} />
+              <Route path="/players/:id" element={<PlayerProfile />} />
+              <Route path="/settings" element={<CommentarySettings />} />
+            </Routes>
+          </Suspense>
         </main>
       </div>
     </Router>

@@ -28,5 +28,36 @@
       "speed": "Velocidad de Procesamiento",
       "accuracy": "Precisión del Modelo"
     }
+  },
+  "navigation": {
+    "home": "Inicio",
+    "liveAnalysis": "Análisis en Vivo",
+    "stats": "Estadísticas",
+    "players": "Jugadores",
+    "settings": "Configuración"
+  },
+  "auth": {
+    "signIn": "Iniciar Sesión"
+  },
+  "analysis": {
+    "title": "Análisis en Vivo",
+    "playerMetrics": "Métricas de Jugadores",
+    "events": "Eventos",
+    "noMetrics": "No hay métricas de jugadores disponibles",
+    "noEvents": "No se detectaron eventos",
+    "loading": "Cargando...",
+    "refresh": "Actualizar",
+    "noVideo": "No hay video seleccionado",
+    "loadLatest": "Cargar Último Juego"
+  },
+  "stats": {
+    "title": "Líderes de la MLB",
+    "batting": "Bateo",
+    "pitching": "Lanzamiento",
+    "battingAvg": "Promedio de Bateo",
+    "homeRuns": "Jonrones",
+    "era": "Efectividad",
+    "strikeouts": "Ponches",
+    "searchPlaceholder": "Buscar jugadores..."
   }
 }

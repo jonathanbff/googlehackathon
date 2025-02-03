@@ -71,20 +71,42 @@ export interface ScoringPlay {
 }
 
 export interface GameEvent {
-  timestamp: string;
+  event_type: 'pitch' | 'hit' | 'fielding' | 'base_running' | 'score';
   inning: number;
   half: 'top' | 'bottom';
-  event_type: 'pitch' | 'hit' | 'fielding' | 'base_running' | 'score';
+  timestamp: string;
   description: string;
-  pitch?: Pitch;
-  batter?: Batter;
-  result?: PitchResult;
-  hit?: Hit;
-  runners?: Runner[];
-  fielder?: Fielder;
-  throw?: Throw;
-  runner?: BaseRunner;
-  scoring_play?: ScoringPlay;
+  pitch?: {
+    pitcher_name: string;
+    pitch_type: string;
+    pitch_speed_mph: number;
+  };
+  hit?: {
+    batter_name: string;
+    hit_type: string;
+    exit_velocity_mph: number;
+    launch_angle_deg: number;
+  };
+  scoring_play?: {
+    runner_name: string;
+    rbi: boolean;
+  };
+}
+
+export interface PlayerStats {
+  pitchSpeed?: string;
+  battingAvg?: string;
+  pitchCount?: number;
+  hits?: number;
+  homeRuns?: number;
+  accuracy?: string;
+  confidence?: number;
+}
+
+export interface PlayerMetric {
+  name: string;
+  position: string;
+  stats: PlayerStats;
 }
 
 export interface FinalScore {
