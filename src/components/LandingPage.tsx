@@ -22,6 +22,10 @@ interface YouTubeVideo {
   snippet: YouTubeVideoSnippet;
 }
 
+interface SearchResponse {
+  items: YouTubeVideo[];
+}
+
 // Add a type for video structure
 interface Video {
   id: string;
@@ -165,10 +169,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onVideoSelect }) => {
   const fetchLiveGames = async () => {
     setIsLoadingLive(true);
     try {
-      const liveGames = await searchMLBVideos('Live Games MLB official') as YouTubeVideo[];
-      if (liveGames && liveGames.length > 0) {
+      const response = await searchMLBVideos('Live Games MLB official') as SearchResponse;
+      if (response?.items?.length > 0) {
         // Convert YouTube API response to our Video format
-        const formattedLiveGames = liveGames.map((game: YouTubeVideo) => ({
+        const formattedLiveGames = response.items.map((game: YouTubeVideo) => ({
           id: game.id.videoId,
           title: game.snippet.title,
           thumbnail: game.snippet.thumbnails.high.url,
