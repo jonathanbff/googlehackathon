@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Search, Play, Award, ChevronRight, Youtube, AlertTriangle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Search, Play, Award, ChevronRight, Youtube, AlertTriangle, Globe2, Users, Bell, Zap } from 'lucide-react';
 import { searchMLBVideos } from '../services/youtubeService';
 
 // YouTube API response types
@@ -154,6 +154,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onVideoSelect }) => {
   const [isApiError, setIsApiError] = useState(false);
   const [videos, setVideos] = useState<Video[]>(MOCK_VIDEOS);
   const [isLoadingLive, setIsLoadingLive] = useState(false);
+  const [showLogo, setShowLogo] = useState(true);
 
   const categories = [
     { id: 'perfect', name: 'Perfect Games', icon: Award, color: 'cyan' },
@@ -283,8 +284,49 @@ const LandingPage: React.FC<LandingPageProps> = ({ onVideoSelect }) => {
     </div>
   );
 
+  // Logo animation on mount
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowLogo(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white">
+      {/* Initial Logo Animation */}
+      <AnimatePresence>
+        {showLogo && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-r from-blue-900 to-purple-900"
+          >
+            <motion.div
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 1.5, opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              className="relative"
+            >
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 2, ease: "linear", repeat: Infinity }}
+                className="w-24 h-24 rounded-full border-4 border-t-blue-400 border-r-purple-400 border-b-cyan-400 border-l-transparent"
+              />
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="absolute inset-0 flex items-center justify-center"
+              >
+                <img src="/logo.png" alt="Baseball AI" className="w-16 h-16" />
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 mix-blend-multiply" />
@@ -295,11 +337,49 @@ const LandingPage: React.FC<LandingPageProps> = ({ onVideoSelect }) => {
             className="text-center"
           >
             <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-              Baseball Game Analysis AI
+              Your Personal Baseball Highlights AI
             </h1>
-            <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-              Analyze baseball games with advanced AI technology. Get instant insights, statistics, and professional commentary.
+            <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
+              Experience baseball like never before with AI-powered personalized highlights in your language.
             </p>
+
+            {/* Feature Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 max-w-4xl mx-auto">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10"
+              >
+                <Globe2 className="w-8 h-8 text-blue-400 mb-4 mx-auto" />
+                <h3 className="text-lg font-semibold mb-2">Multilingual Support</h3>
+                <p className="text-sm text-gray-400">
+                  Enjoy highlights and commentary in English, Spanish, and Japanese
+                </p>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10"
+              >
+                <Users className="w-8 h-8 text-purple-400 mb-4 mx-auto" />
+                <h3 className="text-lg font-semibold mb-2">Personalized Feed</h3>
+                <p className="text-sm text-gray-400">
+                  Follow your favorite teams and players for custom highlight reels
+                </p>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10"
+              >
+                <Bell className="w-8 h-8 text-cyan-400 mb-4 mx-auto" />
+                <h3 className="text-lg font-semibold mb-2">Smart Notifications</h3>
+                <p className="text-sm text-gray-400">
+                  Get real-time alerts for key moments from your followed content
+                </p>
+              </motion.div>
+            </div>
+
+            {/* Search Bar */}
             <div className="relative max-w-2xl mx-auto">
               <input
                 type="text"
@@ -310,8 +390,51 @@ const LandingPage: React.FC<LandingPageProps> = ({ onVideoSelect }) => {
               />
               <Search className="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-400" />
             </div>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap justify-center gap-4 mt-8">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 font-medium"
+              >
+                Get Started
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-3 rounded-full bg-white/10 backdrop-blur-sm font-medium border border-white/20"
+              >
+                Watch Demo
+              </motion.button>
+            </div>
           </motion.div>
         </div>
+
+        {/* Stats Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-2 md:grid-cols-4 gap-8 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 mb-12"
+        >
+          <div className="text-center">
+            <div className="text-3xl font-bold text-blue-400">3</div>
+            <div className="text-sm text-gray-400">Supported Languages</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-purple-400">30+</div>
+            <div className="text-sm text-gray-400">MLB Teams</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-cyan-400">1000+</div>
+            <div className="text-sm text-gray-400">Games Analyzed</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-green-400">24/7</div>
+            <div className="text-sm text-gray-400">Real-time Updates</div>
+          </div>
+        </motion.div>
       </div>
 
       {/* Categories */}
