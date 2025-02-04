@@ -1,0 +1,78 @@
+{
+    "example_queries": [
+        {
+            "query": "Show me the live game data for the current Dodgers game",
+            "description": "Uses get_live_game_data tool to fetch real-time game information",
+            "expected_tool": "get_live_game_data"
+        },
+        {
+            "query": "What's the MLB schedule for the 2024 season?",
+            "description": "Uses get_season_schedule tool to fetch the season calendar",
+            "expected_tool": "get_season_schedule",
+            "api_call": "https://statsapi.mlb.com/api/v1/schedule?season=2024"
+        },
+        {
+            "query": "Get me the current roster for the LA Dodgers",
+            "description": "Uses get_team_roster tool to fetch team composition",
+            "expected_tool": "get_team_roster",
+            "api_call": "https://statsapi.mlb.com/api/v1/teams/119/roster?season=2024"
+        },
+        {
+            "query": "Who's playing in today's games?",
+            "description": "Uses get_season_schedule tool with current date filter",
+            "expected_tool": "get_season_schedule"
+        },
+        {
+            "query": "Show me the Yankees roster for this season",
+            "description": "Uses get_team_roster tool for a different team",
+            "expected_tool": "get_team_roster"
+        },
+        {
+            "query": "What's the score of the current Red Sox game?",
+            "description": "Uses get_live_game_data tool for specific team",
+            "expected_tool": "get_live_game_data"
+        },
+        {
+            "query": "When do the Dodgers play their next home game?",
+            "description": "Uses get_season_schedule tool with team and location filters",
+            "expected_tool": "get_season_schedule"
+        },
+        {
+            "query": "Who are the starting pitchers in today's Cubs game?",
+            "description": "Uses get_live_game_data tool to fetch game details",
+            "expected_tool": "get_live_game_data"
+        },
+        {
+            "query": "Show me all the games scheduled for Opening Day 2024",
+            "description": "Uses get_season_schedule tool with specific date",
+            "expected_tool": "get_season_schedule"
+        },
+        {
+            "query": "What's the current bullpen roster for the Astros?",
+            "description": "Uses get_team_roster tool with position filter",
+            "expected_tool": "get_team_roster"
+        }
+    ],
+    "tool_descriptions": {
+        "get_live_game_data": {
+            "description": "Fetches real-time information about ongoing games",
+            "parameters": {
+                "game_pk": "Unique identifier for the game"
+            }
+        },
+        "get_season_schedule": {
+            "description": "Retrieves MLB season schedule information",
+            "parameters": {
+                "season": "Year of the season",
+                "game_type": "Type of game (R for Regular Season, P for Postseason, S for Spring Training)"
+            }
+        },
+        "get_team_roster": {
+            "description": "Gets the current roster for a specific team",
+            "parameters": {
+                "team_id": "Unique identifier for the team",
+                "season": "Year of the season"
+            }
+        }
+    }
+}
