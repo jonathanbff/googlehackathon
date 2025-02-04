@@ -1,0 +1,12 @@
+# langchain-core==0.1.17
+langchain-openai==0.0.5
+# langgraph==0.0.20
+fastapi==0.109.2
+uvicorn==0.27.1
+python-dotenv==1.0.1
+requests==2.31.0
+pydantic==2.6.1
+ipython==8.22.2
+sse-starlette==1.8.2
+httpx==0.26.0
+python-dateutil==2.8.2 
