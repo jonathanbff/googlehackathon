@@ -1,7 +1,12 @@
 # MLB Stats Central
 
 ## Overview
-MLB Stats Central is a web application that provides comprehensive statistics, player profiles, and game analyses for Major League Baseball. Users can view leaderboards, upcoming games, and the latest news in the baseball world.
+MLB Stats Central is a web application that provides comprehensive statistics, player profiles, and game analyses for Major League Baseball. Users can view leaderboards, upcoming games, and the latest news in the baseball world. The application leverages the Langraph framework for efficient tool invocation and workflow management.
+
+## Architecture
+Below is the workflow diagram of our MLB agent system built with Langraph:
+
+![MLB Agent Workflow](langraph_backend/mlb_agent_workflow.png)
 
 ## Features
 - **Player Statistics**: View detailed statistics for players, including batting averages, home runs, and more.
@@ -12,9 +17,10 @@ MLB Stats Central is a web application that provides comprehensive statistics, p
 
 ## Technologies Used
 - **Frontend**: React, TypeScript, Tailwind CSS
-- **Backend**: Python, Flask
+- **Backend**: Python, Flask, Langraph
 - **Database**: PostgreSQL
 - **APIs**: MLB API for real-time data
+- **Agent Framework**: Langraph for tool orchestration and workflow management
 
 ## Installation
 
@@ -22,6 +28,7 @@ MLB Stats Central is a web application that provides comprehensive statistics, p
 - Node.js (v14 or higher)
 - Python (v3.7 or higher)
 - PostgreSQL
+- Langraph
 
 
 ### Frontend Setup
@@ -51,6 +58,7 @@ MLB Stats Central is a web application that provides comprehensive statistics, p
 3. Install dependencies:
    ```bash
    pip install -r requirements.txt
+   pip install langraph
    ```
 4. Set up the database (make sure PostgreSQL is running):
    ```bash
